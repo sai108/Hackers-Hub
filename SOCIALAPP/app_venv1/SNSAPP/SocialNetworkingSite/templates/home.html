@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+    <head>
+		<link rel="shortcut icon" type="image/x-icon" href="{% static 'img/logo.png' %}" />
+        <title>
+            Hackers Hub
+        </title>
+      <!--Import Google Icon Font-->
+      <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="{% static 'css/materialize.min.css' %}" media="screen,projection"/>
+      <link rel="stylesheet" href="{% static 'font/material-design-icons/Material-Design-Icons.eot' %}" />
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+      <link href="{% static 'css/materialize.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+      <link href="{% static 'css/style.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+    </head>
+
+    <body>
+    <div class="navbar-fixed">
+    <nav class="green z-depth-2" role="navigation">
+    <div class="nav-wrapper container">
+			<div class="conatiner">
+              <a href="#" class="brand-logo brand-logo-small"> <img id="header-logo" alt="Hackers Hub Logo" align="top" src="{% static 'img/logo.png' %}"/>
+                <span>Hackers Hub</span></a>
+			</div>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="#aboutus" class="waves-effect waves-light">About Us</a></li>
+      </ul>
+
+      <ul id="nav-mobile" class="side-nav">
+        <li><a href="#aboutus" class="waves-effect waves-light">About Us</a></li>
+      </ul>
+      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+</div>
+
+<div id="index-banner" class="parallax-container">
+    <div class="section no-pad-bot">
+      <div class="container">
+       <h1 class="header center blue-text">Hackers Hub</h1>
+        <div class="row center">
+          <h5 class="header col s12 blue-text">A modern way of gaining knowledge, solving errors, with your friends on Hackers Hub.</h5>
+        </div>
+		<div class="row"></div>		<div class="row"></div>		<div class="row"></div><!----- to create a gap-->
+        <div class="row center">
+			<div class="col s6">
+			<a href="#login"  class="btn-large waves-effect waves-light blue hoverable">Login</a>
+			</div>
+		  <div class="col s6">
+          <a href="#register" class="btn-large waves-effect waves-light blue hoverable">Register</a>
+		  </div>
+        </div>
+      </div>
+	</div>
+    <div class="parallax"><img src="static/img/bg1.jpg" alt="Unsplashed background img 1" /></div>
+  </div>
+
+  <div class="container">
+    <div class="section">
+
+	<div class="row">
+	<div class="row" id="login">
+	<h3 class="center blue-text text-lighten-2">Login</h3>
+	</div>
+           <form class="container" method="post" action ="/login">   {% csrf_token %}
+                  <span class="red-text text-darken-2">
+                      {% if message %}
+                          <i class="small material-icons">warning</i> {{ message }}
+                      {% endif %}
+                  </span>
+				<div class="row">
+					<div class="col s12 m1 l2"><p> </p></div><!-- extra for spacing of responsivness-->
+						<div class="input-field col s12 m10 l8">
+							<i class="large material-icons prefix">email</i>
+							<input required="" id="icon_prefix" name="email" type="email" class="validate">
+							<label for="icon_prefix" data-error="wrong" data-success="right">Email</label>
+						</div>
+					<div class="col s12 m1 l2"><p> </p></div><!-- extra for spacing of responsivness-->
+				</div>
+
+				<div class="row">
+					<div class="col s12 m1 l2"><p> </p></div><!-- extra for spacing of responsivness-->
+					<div class="input-field col s12 m10 l8">
+					<i class="large material-icons prefix">lock</i>
+					<input required="" aria-required="true" name="password" id="icon_password" type="password" class="validate">
+					<label for="icon_password">Password</label>
+					</div>
+					<div class="col s12 m1 l2"><p> </p></div><!-- extra for spacing of responsivness-->
+				</div>
+
+                  <div class="row center">
+					<div class="container">
+						<button class="btn waves-effect waves-light blue" type="submit" name="action">&#60;Login&#47;&#62;</button>
+					</div>
+				  </div>
+
+				  <div class="row center">
+					<div class="conatiner">
+						<i class="tiny material-icons" id="helpicon">help</i>
+						<a href="forgetpswd.html" for="helpicon" class="blue-text text-darken-2">Forgot Password?</a>
+						</div>
+				  </div>
+
+				  <div class="row center">
+					<div class="container">
+						Not yet a Hacker? <a href="#register" for="helpicon" class="light-green-text text-darken-2">Signup</a>
+					</div>
+				  </div>
+
+           </form>
+    </div >
+	</div>
+  </div>
+
+
+  <div class="parallax-container valign-wrapper">
+    <div class="parallax"><img src="static/img/bg2.png" alt="Unsplashed background img 2" /></div>
+  </div>
+
+<div class="container">
+
+<div class="section">
+
+<div class="row">
+	<div class="row" id="register">
+	<h3 class="center blue-text text-lighten-2">Register</h3>
+	</div>
+
+
+    <form class="container" method="post" action ="/register">   {% csrf_token %}
+
+                  <span class="red-text text-darken-2">
+                      {% if message_register %}
+                          <i class="small material-icons">warning</i> {{ message_register }}
+                      {% endif %}
+                  </span>
+				  <div class="row">
+						<div class="col s12 m1 l2"><p> </p></div><!-- extra for spacing of responsivness-->
+						<div class="input-field col s12 m10 l8">
+						<i class="large material-icons prefix">account_box</i>
+						<input id="icon_first" name="first_name" aria-required="true" required="" type="text" class="validate">
+						<label for="icon_first">First Name</label>
+						</div>
+						<div class="col s12 m1 l2"><p> </p></div><!-- extra for spacing of responsivness-->
+				  </div>
+				  <div class="row">
+						<div class="col s12 m1 l2"><p> </p></div><!-- extra for spacing of responsivness-->
+						<div class="input-field col s12 m10 l8">
+						<i class="large material-icons prefix">account_box</i>
+						<input id="icon_last" name="last_name" aria-required="true" required="" type="text" class="validate">
+						<label for="icon_last">Last Name</label>
+						</div>
+						<div class="col s12 m1 l2"><p> </p></div><!-- extra for spacing of responsivness-->
+				  </div>
+				  <div class="row">
+						<div class="col s12 m1 l2"><p> </p></div><!-- extra for spacing of responsivness-->
+						<div class="input-field col s12 m10 l8">
+						<i class="large material-icons prefix">call</i>
+						<input name="telephone" required="" aria-required="true" id="icon_phone" type="tel" class="validate">
+						<label for="icon_phone" data-error="wrong" data-success="right">Contact Number</label>
+						</div>
+						<div class="col s12 m1 l2"><p> </p></div><!-- extra for spacing of responsivness-->
+				 </div>
+
+				  <div class="row">
+						<div class="col s12 m1 l2"><p> </p></div><!-- extra for spacing of responsivness-->
+						<div class="input-field col s12 m10 l8">
+						<i class="large material-icons prefix">email</i>
+						<input name="email" required="" aria-required="true" id="icon_email" type="email" class="validate">
+						<label for="icon_email" data-error="wrong" data-success="right">Email</label>
+						</div>
+						<div class="col s12 m1 l2"><p> </p></div><!-- extra for spacing of responsivness-->
+				 </div>
+
+			<div class="row">
+					<div class="col s12 m1 l2"><p> </p></div><!-- extra for spacing of responsivness-->
+					<div class="input-field col s12 m10 l8">
+						<i class="large material-icons prefix">lock</i>
+						<input name="password2" required="" aria-required="true" id="icon_password1" type="password" class="validate">
+						<label for="icon_password1">Password</label>
+					</div>
+					<div class="col s12 m1 l2"><p> </p></div><!-- extra for spacing of responsivness-->
+			</div>
+
+			<div class="row">
+					<div class="col s12 m1 l2"><p> </p></div><!-- extra for spacing of responsivness-->
+					<div class="input-field col s12 m10 l8">
+						<i class="large material-icons prefix">lock</i>
+						<input name="password1" required="" aria-required="true" id="icon_password" type="password" class="validate">
+						<label for="icon_password">Confirm Password</label>
+					</div>
+					<div class="col s12 m1 l2"><p> </p></div><!-- extra for spacing of responsivness-->
+			</div>
+
+
+            <div class="row">
+					<div class="col s12 m1 l2"><p> </p></div><!-- extra for spacing of responsivness-->
+					<div class="input-field col s12 m10 l8">
+						<i class="small material-icons prefix">today</i>
+                            <input name="date" required="" aria-required="true" id="date" type="text" maxlength="10">
+                            <label for="Date">Birthday(dd-mm-yyyy)</label>
+					</div>
+					<div class="col s12 m1 l2"><p> </p></div><!-- extra for spacing of responsivness-->
+			</div>
+            <div class="row">
+                          <p class="center">
+                              <input class="with-gap" required="" aria-required="true" name="gender" type="radio" id="test1" value="male" />
+                              <label for="test1">Male</label>
+                          </p>
+                          <p class="center">
+                                <input class="with-gap" aria-required="true" required="" name="gender" type="radio" id="test2" value="female"/>
+                                <label for="test2">Female</label>
+                          </p>
+            </div>
+
+                  <!--div class="row">
+                       <p>
+                           <input required="" aria-required="true" type="checkbox" id="test" />
+                           <label for="test">I accept to the terms and conditions</label>
+                       </p>
+                       <button class="btn waves-effect waves-light" type="submit" name="action">Create My Account
+                       <i class="material-icons right">send</i></button>
+                  </div-->
+			<div class="row center">
+				<div class="conatiner">
+				<input required="" aria-required="true" type="checkbox" class="filled-in" id="filled-in-box" />
+				<label for="filled-in-box" >I agree to the <a href="termsofuse.html" class="blue-text text-darken-2">Terms of Use</a> and <a href="privacypolicy.html" class="blue-text text-darken-2">Privacy Policy</a></label>
+				</div>
+			</div>
+			<div class="row center">
+				<div class="container">
+				<button class="btn waves-effect waves-light blue" type="submit" name="action">Register
+				<i class="material-icons right">send</i>
+				</button>
+			</div>
+			</div>
+	  	<div class="row center">
+        <div class="container">
+			Already signed up? <a href="#login" for="helpicon" class="light-green-text text-darken-2">Login</a>
+        </div>
+      </div>
+    </form>
+
+
+</div>
+</div>
+</div>
+
+	<div class="parallax-container valign-wrapper">
+		<div class="parallax"><img src="static/img/bg3.jpg" alt="Unsplashed background img 3" /></div>
+	</div>
+
+<footer class="page-footer teal">
+    <div class="container" id="aboutus">
+
+      <div class="row">
+        <div class="col s12 l9 m9">
+          <h4 class="white-text">Hackers Hub</h4>
+          <p class="grey-text text-lighten-4">We are a team of college students working on this project so that it would be helpful to anyone. We will continue development on this project and help us grow by sharing.</p>
+        </div>
+
+        <div class="col s12 l3 m3 center">
+          <ul>
+            <li class="waves-effect waves-orange"><h5><a class="white-text" href="#!" id="links">About Us</a></h5></li>
+            <li class="waves-effect waves-orange"><h5><a class="white-text" href="termsofuse.html" id="links">Terms of Use</a></h5></li>
+            <li class="waves-effect waves-orange"><h5><a class="white-text" href="privacypolicy.html" id="links">Privacy Policy</a></h5></li>
+            <li class="waves-effect waves-orange"><h5><a class="white-text" href="mailto:vagmivardhan9696@gmail.com" id="links">Contact Us</a></h5></li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+	 <div class="divider"></div>
+	  <div class="divider"></div>
+    <div class="footer-copyright">
+      <div class="container center">
+      Made in <a href="https://www.google.co.in/#q=hyderabad" class="amber-text text-lighten-1">Hyderabad</a> by &#169; <a class="amber-text text-lighten-1" href="#">Hackers Hub</a>, All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+
+
+	   <!--Import jQuery before materialize.js-->
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/init.js' %}"></script>
+
+   </body>
+</html>

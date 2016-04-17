@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+	<link rel="shortcut icon" type="image/x-icon" href="{% static 'img/logo.png' %}" />
+    <title>Chat Box</title>
+    <!--Import Google Icon Font-->
+      <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="{%static 'css/materialize.min.css' %}" media="screen,projection"/>
+      <!--<meta http-equiv="refresh" content="5; URL=http://127.0.0.1:8000/view_all_posts/{{ id }}"> -->
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link type="text/css" rel="stylesheet" href="{% static 'css/materialize.min.css' %}" media="screen,projection"/>
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <link rel="stylesheet" href="{% static 'font/material-design-icons/Material-Design-Icons.eot' %}" />
+      <link href="{% static 'css/materialize.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+      <link href="{% static 'css/style.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+     <style>
+.corners {
+    border-radius: 15px;
+    border: 2px solid #73AD21;
+    padding: 20px;
+    width: 500px;
+    height: 500px;
+}
+  ul{
+  list-style-type: none;
+  }
+  .collapsible-header.active{
+  background-color:#26a69a;
+  }
+  .collapsible-header.active.tohide{
+  display:none;
+  }
+  .sticky{
+  position:relative;
+  top:0;
+  }
+      </style>
+</head>
+<body class="grey lighten-3">
+
+        <div class="navbar-fixed">
+<nav class="green z-depth-2" role="navigation">
+    <div class="nav-wrapper">
+			<div class="container">
+	            <a href="#" class="brand-logo brand-logo-small"> <img id="header-logo" alt="Hackers Hub Logo" align="top" src="{% static 'img/logo.png' %}"/>
+                <span>Hackers Hub</span></a>
+			</div>
+      <ul class="right hide-on-med-and-down">
+		<li>
+			<a href="/view_all_posts/{{ id }}" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="News Feed">
+				<img align="middle" src="{% static 'img/newspaper.png' %}" alt="newsfeed"/>
+			</a>
+		</li><!--newsfeed-->
+		<li>
+			<a href="/profile/{{ id }}" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Profile">
+				<img align="middle" src="{% static 'img/account-circle.png' %}" alt="account"/>
+			</a>
+		</li><!--account-->
+		<li>
+			<a href="/code/{{ id }}" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Practice">
+				<img align="middle" src="{% static 'img/fitness-center.png' %}" alt="practice"/>
+			</a>
+		</li> <!--(practice)  fitness center-->
+		<li>
+			<a href="/find_all_friends/{{ id }}" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Find Friends">
+				<img align="middle" src="{% static 'img/add.png' %}" alt="find friends"/>
+			</a>
+		</li>  <!--group-->
+		<li>
+			<a href="/notifications/{{ id }}" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Notifications">
+				<img align="middle" src="{% static 'img/notifications.png' %}" alt="notification"/>
+			</a>
+		</li> <!--notifications  notifications off-->
+		<li class="active">
+			<a href="/chat/{{ id }}" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Chat">
+				<img align="middle" src="{% static 'img/forum.png' %}" alt="chat"/>
+			</a>
+		</li>
+		<li>
+			<a href="/logout/{{ id }}" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Logout">
+			<img align="middle" src="{% static 'img/logout.png' %}" alt="logout"/>
+			</a>
+		</li>
+      </ul>
+
+      <ul id="nav-mobile" class="side-nav">
+		<li>
+			<a href="/view_all_posts/{{ id }}" class="waves-effect waves-light">News Feed
+				<!--img align="middle" src="newspaper.png" alt="newsfeed"/-->
+			</a>
+		</li>
+        <li>
+			<a href="/profile/{{ id }}" class="waves-effect waves-light">Profile
+				<!--img align="middle" src="account-circle.png" alt="account"/-->
+			</a>
+		</li><!--account-->
+		<li>
+			<a href="/code/{{ id }}" class="waves-effect waves-light">Practice
+				<!--img align="middle" src="fitness-center.png" alt="practice"/-->
+			</a>
+		</li> <!--(practice)  fitness center-->
+		<li>
+			<a href="/find_all_friends/{{ id }}" class="waves-effect waves-light">Find Friends
+				<!--img align="middle" src="add.png" alt="find friends"/-->
+			</a>
+		</li>  <!--group-->
+		<li>
+			<a href="/notifications/{{ id }}" class="waves-effect waves-light">Notifications
+				<!--img align="middle" src="notifications.png" alt="notification"/-->
+			</a>
+		</li> <!--notifications  notifications off-->
+		<li class="active">
+			<a href="/chat/{{ id }}" class="waves-effect waves-light">Chat
+				<!--img align="middle" src="forum.png" alt="chat"/-->
+
+			</a>
+		</li>
+		<li>
+			<a href="/logout/{{ id }}" class="waves-effect waves-light">Logout
+			<!--img align="middle" src="logout.png" alt="logout"/-->
+			</a>
+		</li>
+      </ul>
+      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+ </div>
+		<div class="row"></div>
+		<div class="row"></div>
+        <div class="row">
+                <div class="container corners">
+                    <div class="col m4 l4 s4">
+                    <p class="title blue-text">Chat with your friends</p>
+
+						<ul class="collection">
+                        {% for friend in friends %}
+                            <li class="collection-item avatar">
+							<img class="responsive-img circle" src="{% static 'img/p2.jpg' %}"/>
+							<h5><a href="/chat_box/{{ id }}/{{ friend.id }}" target="chat_frame">{{ friend.name }}</a></h5> <!--class="title"-->
+							</li>
+                        {% endfor %}
+						</ul>
+                    </div>
+
+                    <iframe name="chat_frame" align="middle" height="480" width="300" scrolling="auto" class="col s8 m8 l8">
+
+                    </iframe>
+                </div>
+        </div>
+
+      <!--Import jQuery before materialize.js-->
+         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+         <script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
+         <script type="text/javascript" src="{% static 'js/notif.js' %}"></script>
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+         <!-- Compiled and minified CSS -->
+         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.96.1/css/materialize.min.css">
+         <!-- Compiled and minified JavaScript -->
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.96.1/js/materialize.min.js"></script>
+
+</body>
+</html>

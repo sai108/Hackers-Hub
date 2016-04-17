@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/logo.png' %}" />
+    <title>Find Friends</title>
+    <!--Import Google Icon Font-->
+      <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="{% static 'css/materialize.min.css' %}" media="screen,projection"/>
+      <link rel="stylesheet" href="{% static 'font/material-design-icons/Material-Design-Icons.eot' %}" />
+      <link href="{% static 'css/materialize.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+      <link href="{% static 'css/style.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+
+      <!--<meta http-equiv="refresh" content="5; URL=http://127.0.0.1:8000/view_all_posts/{{ id }}"> -->
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	      <style>
+          /*.my-center{
+              margin-left: 800px;
+              margin-right: -800px;
+          }
+          .new_center{
+              margin-left: 200px;
+              margin-right: -300px;
+          }*/
+
+          #staggered-test{
+	        opacity: 0;
+            }
+          ul{
+            list-style-type: none;
+            }
+          .collapsible-header.active{
+            background-color:#26a69a;
+            }
+          .collapsible-header.active.tohide{
+            display:none;
+            }
+          .sticky{
+              position:relative;
+              top:0;
+            }
+      </style>
+
+</head>
+<body>
+
+<div class="navbar-fixed">
+<nav class="green z-depth-2" role="navigation">
+    <div class="nav-wrapper">
+			<div class="container">
+	            <a href="#" class="brand-logo brand-logo-small"> <img id="header-logo" alt="Hackers Hub Logo" align="top" src="{% static 'img/logo.png' %}"/>
+                <span>Hackers Hub</span></a>
+			</div>
+      <ul class="right hide-on-med-and-down">
+		<li>
+			<a href="/view_all_posts/{{ id }}" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="News Feed">
+				<img align="middle" src="{% static 'img/newspaper.png' %}" alt="newsfeed"/>
+			</a>
+		</li><!--newsfeed-->
+		<li>
+			<a href="/profile/{{ id }}" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Profile">
+				<img align="middle" src="{% static 'img/account-circle.png' %}" alt="account"/>
+			</a>
+		</li><!--account-->
+		<li>
+			<a href="/code/{{ id }}" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Practice">
+				<img align="middle" src="{% static 'img/fitness-center.png' %}" alt="practice"/>
+			</a>
+		</li> <!--(practice)  fitness center-->
+		<li class="active">
+			<a href="/find_all_friends/{{ id }}" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Find Friends">
+				<img align="middle" src="{% static 'img/add.png' %}" alt="find friends"/>
+			</a>
+		</li>  <!--group-->
+		<li>
+			<a href="/notifications/{{ id }}" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Notifications">
+				<img align="middle" src="{% static 'img/notifications.png' %}" alt="notification"/>
+
+			</a>
+		</li> <!--notifications  notifications off-->
+		<li>
+			<a href="/chat/{{ id }}" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Chat">
+				<img align="middle" src="{% static 'img/forum.png' %}" alt="chat"/>
+
+			</a>
+		</li>
+		<li>
+			<a href="/logout/{{ id }}" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Logout">
+			<img align="middle" src="{% static 'img/logout.png' %}" alt="logout"/>
+			</a>
+		</li>
+      </ul>
+
+      <ul id="nav-mobile" class="side-nav">
+		<li>
+			<a href="/view_all_posts/{{ id }}" class="waves-effect waves-light">News Feed
+				<!--img align="middle" src="newspaper.png" alt="newsfeed"/-->
+			</a>
+		</li>
+        <li>
+			<a href="/profile/{{ id }}" class="waves-effect waves-light">Profile
+				<!--img align="middle" src="account-circle.png" alt="account"/-->
+			</a>
+		</li><!--account-->
+		<li>
+			<a href="/code/{{ id }}" class="waves-effect waves-light">Practice
+				<!--img align="middle" src="fitness-center.png" alt="practice"/-->
+			</a>
+		</li> <!--(practice)  fitness center-->
+		<li class="active">
+			<a href="/find_all_friends/{{ id }}" class="waves-effect waves-light">Find Friends
+				<!--img align="middle" src="add.png" alt="find friends"/-->
+			</a>
+		</li>  <!--group-->
+		<li>
+			<a href="/notifications/{{ id }}" class="waves-effect waves-light">Notifications
+				<!--img align="middle" src="notifications.png" alt="notification"/-->
+
+			</a>
+		</li> <!--notifications  notifications off-->
+		<li>
+			<a href="/chat/{{ id }}" class="waves-effect waves-light">Chat
+				<!--img align="middle" src="forum.png" alt="chat"/-->
+
+			</a>
+		</li>
+		<li>
+			<a href="/logout/{{ id }}" class="waves-effect waves-light">Logout
+			<!--img align="middle" src="logout.png" alt="logout"/-->
+			</a>
+		</li>
+      </ul>
+      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+ </div>
+
+
+<nav class="green">
+    <div class="nav-wrapper">
+      <form method="post" action="">{% csrf_token%}
+               <div center class="input-field">
+                  <input id="search" type="search" required>
+                  <label for="search"><i class="material-icons">search</i></label>
+                  <i class="material-icons">close</i>
+               </div>
+      </form>
+    </div>
+  </nav>
+
+<div class="row grey lighten-3">
+
+     <div class="col s12 m12 l9 main-content">
+
+      <div class="container">
+    <div class="section">
+
+        {% for user in already_sent_request_to %}
+           <div class="row">
+               <div class="col m2"><p> </p></div>
+                <div class="col s12 m8">
+                    <form method="post" id="{{ user.id }}" class="submit-form"> {% csrf_token %}
+                            <div class="row z-depth-2 white">
+                                <br>
+                              <div class="container">
+                                  <img class="responsive-img circle" height="300px" width="300px" src="{% static 'img/p2.jpg' %}"/>
+                                    <h4>{{ user.first_name }}</h4>
+                                  <h6>{{ user.email }}</h6>
+                                    <input type="submit" value="REQUEST SENT" id="{{ user.id }}" data-id="{{ user.id }}" class="btn send-request disabled" />
+                              </div>
+                                <br>
+                            </div>
+                    </form>
+                    </div>
+               </div>
+        {% endfor %}
+
+
+         {% for user in others %}
+           <div class="row">
+               <div class="col m2"><p> </p></div>
+                <div class="col s12 m8">
+                    <form method="post" id="{{ user.id }}" class="submit-form"> {% csrf_token %}
+                        <div class="row z-depth-2 white">
+                          <br>
+                          <div class="container">
+                              <img class="responsive-img circle" height="300px" width="300px" src="{% static 'img/p2.jpg' %}"/>
+                                <h4>{{ user.first_name }}</h4>
+                                <h6>{{ user.email }}</h6>
+                                <input type="submit" value="CONNECT" name="{{ user.id }}" id="{{ user.id }}" data-id="{{ user.id }}" class="btn {{ user.id }} send-request" />
+                          </div>
+                            <br>
+                         </div>
+                    </form>
+                </div>
+           </div>
+            <br/>
+        {% endfor %}
+
+        <input type="text" id="_id" value="{{ id }}" hidden />
+        </div>
+      </div>
+    </div>
+      <!--side chat bar-->
+  <div class="col l3 hide-on-med-and-down">
+	<div id="sidebar" class="sticky">
+	<ul class="collapsible collection" data-collapsible="expandable">
+	 <li class="collection-item avatar">
+			<div class="collapsible-header">
+				<img src="p2.jpg" alt="" class="circle">
+				<span class="title">User name</span>
+				<a class="secondary-content"><i class="material-icons">grade</i></a>
+			</div>
+			<div class="collapsible-body"><p>Lorem ipsum dolor sit amet.sjadbsajkdbjkasbdfj</p></div>
+    </li>
+    <li class="collection-item avatar">
+			<div class="collapsible-header">
+				<i class="material-icons circle">folder</i>
+				<span class="title">User 2</span>
+				<a class="secondary-content"><i class="material-icons">grade</i></a>
+			</div>
+			<div class="collapsible-body"><p>Lorem ipsum dolor sit amet.sjadbsajkdbjkasbdfj</p></div>
+    </li>
+    <li class="collection-item avatar">
+			<div class="collapsible-header">
+				<i class="material-icons circle green">insert_chart</i>
+				<span class="title">Known User</span>
+				<a class="secondary-content"><i class="material-icons">grade</i></a>
+	  		</div>
+			<div class="collapsible-body"><p>Lorem ipsum dolor sit amet.sjadbsajkdbjkasbdfj</p></div>
+    </li>
+    <li class="collection-item avatar">
+			<div class="collapsible-header">
+				<i class="material-icons circle red">play_arrow</i>
+				<span class="title">User 44</span>
+				<a class="secondary-content"><i class="material-icons">grade</i></a>
+			</div>
+			<div class="collapsible-body"><p>Lorem ipsum dolor sit amet.sjadbsajkdbjkasbdfj</p></div>
+    </li>
+	<li class="collection-item avatar">
+			<div class="collapsible-header">
+				<i class="material-icons circle red">play_arrow</i>
+				<span class="title">User 44</span>
+				<a class="secondary-content"><i class="material-icons">grade</i></a>
+			</div>
+			<div class="collapsible-body"><p>Lorem ipsum dolor sit amet.sjadbsajkdbjkasbdfj</p></div>
+    </li>
+	<li class="collection-item avatar">
+			<div class="collapsible-header">
+				<i class="material-icons circle red">play_arrow</i>
+				<span class="title">User 44</span>
+				<a class="secondary-content"><i class="material-icons">grade</i></a>
+			</div>
+			<div class="collapsible-body"><p>Lorem ipsum dolor sit amet.sjadbsajkdbjkasbdfj</p></div>
+    </li>
+		<li class="collection-item avatar">
+			<div class="collapsible-header">
+				<i class="material-icons circle red">play_arrow</i>
+				<span class="title">User 44</span>
+				<a class="secondary-content"><i class="material-icons">grade</i></a>
+			</div>
+			<div class="collapsible-body"><p>Lorem ipsum dolor sit amet.sjadbsajkdbjkasbdfj</p></div>
+    </li>
+	</ul>
+	</div>
+  </div>
+
+
+</div>
+        <!--Import jQuery before materialize.js-->
+         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+        <script type="text/javascript" src="{% static 'js/jquery-2.1.1.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
+         <script type="text/javascript" src="{% static 'js/users.js' %}"></script>
+         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+         <!-- Compiled and minified CSS -->
+         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.96.1/css/materialize.min.css">
+         <!-- Compiled and minified JavaScript -->
+         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.96.1/js/materialize.min.js"></script>
+
+
+ <script>
+  var stickySidebar = $('.sticky');
+
+if (stickySidebar.length > 0) {
+  var stickyHeight = stickySidebar.height(),
+      sidebarTop = stickySidebar.offset().top;
+}
+
+// on scroll move the sidebar
+$(window).scroll(function () {
+  if (stickySidebar.length > 0) {
+    var scrollTop = $(window).scrollTop();
+
+    if (sidebarTop < scrollTop) {
+      stickySidebar.css('top', scrollTop - sidebarTop);
+
+      // stop the sticky sidebar at the footer to avoid overlapping
+      var sidebarBottom = stickySidebar.offset().top + stickyHeight,
+          stickyStop = $('.main-content').offset().top + $('.main-content').height();
+      if (stickyStop < sidebarBottom) {
+        var stopPosition = $('.main-content').height() - stickyHeight;
+        stickySidebar.css('top', stopPosition);
+      }
+    }
+    else {
+      stickySidebar.css('top', '0');
+    }
+  }
+});
+
+$(window).resize(function () {
+  if (stickySidebar.length > 0) {
+    stickyHeight = stickySidebar.height();
+  }
+});
+  </script>
+
+</body>
+</html>

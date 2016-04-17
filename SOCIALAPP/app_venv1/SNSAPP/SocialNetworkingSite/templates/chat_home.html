@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat Panel</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" />
+
+    <!-- If Internet-->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <!-- If NO Internet -->
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+    <!-- If Internet-->
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- If NO Internet -->
+    <script src="{% static 'js/ajaxAPIs-jQuery1.11.3.min.js'%}"></script>
+
+    <!-- If Internet-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <!-- If NO Internet -->
+    <script type="text/javascript" src="{% static 'js/codejQuery-2.1.1.min.js' %}"></script>
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css'  %}">
+
+    <style>
+    .from{
+   border: 2px solid #a1a1a1;
+    padding: 10px 40px;
+    background: #dddddd;
+    width: 300px;
+    border-radius: 25px;
+     display: inline-block;
+        overflow: auto;
+        clear: both;
+    }
+</style>
+</head>
+<body class="grey lighten-3">
+     <div id="chat-body" class="panel panel-default grey lighten-3">
+         <div class="panel-heading">Chat box    {{ friend_name }}</div>
+         <div id="msg-list-div" class="panel-body">
+            <ul id="msg-list" class="list-group">
+               {% for obj in chat %}
+                   {% if obj.posted_by == 0  %}
+                         <div class="text-right list-group-item from" style="float: right" id="{{ obj.id }}">{{ obj.message }}
+                            <a href="/delete_msg/{{ id }}/{{ obj.friends_id }}/{{ obj.id }}" class="delete-request" id="{{ obj.id }}" data-id="{{ obj.id }}" >
+                               <span class="glyphicon glyphicon-trash"></span>
+                            </a>
+                          </div>
+                   {% else%}
+                         <div class="text-left list-group-item from" style="float: left" id="{{ obj.id }}">{{ obj.message }}
+                            <a href="/delete_msg/{{ id }}/{{ obj.friends_id }}/{{ obj.id }}" id="{{ obj.id }}" class="delete-request" data-id="{{ obj.id }}">
+                               <span  class="glyphicon glyphicon-trash"></span>
+                            </a>
+                         </div>
+                   {% endif %}
+                   {% empty %}
+                        <li class="text-right list-group-item">No message yet</li>
+               {% endfor %}
+                <script>
+                     var chatList = document.getElementById('msg-list-div');
+                    chatList.scrollTop = chatList.scrollHeight;
+                </script>
+            </ul>
+         </div>
+     </div>
+
+
+     <form id="chat-form" method="POST" class="grey lighten-3"> {% csrf_token %}
+          <div id="chat-bottom" class="input-group">
+              <input type="text" id="chat-msg" required="" aria-required="true" name="chat-msg" class="form-control"/>
+              <span class="input-group-btn">
+                   <input class="btn btn-default" id="send" type="submit"  value="Send" />
+              </span>
+           </div>
+     </form>
+
+      <input type="text" id="_id" value="{{ id }}" hidden />
+      <input type="text" id="friend_id" value="{{ friend_id }}" hidden/>
+
+     <script src="{% static 'js/chat.js' %}"></script>
+</body>
+</html>

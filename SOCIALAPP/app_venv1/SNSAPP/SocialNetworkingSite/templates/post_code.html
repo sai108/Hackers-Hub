@@ -1,0 +1,412 @@
+{% load staticfiles %}
+{% for post in posts %}
+
+           {% if post.imagePath %}
+
+
+               <div class="row">
+                   <div class="row"><div class="center"><a class="btn-floating btn-large"><i class="large material-icons red">photo</i></a></div></div>
+                <div clads="col s12 m12">
+
+                   <div class="card">
+                      <div class="card-image waves-effect waves-block waves-light">
+                         <img class="activator" src="{{ post.imagePath }}">
+                      </div>
+                      <div class="card-content">
+                          <div class="row"><span class="card-title activator grey-text text-darken-4">{{ post.name_of_posted_user }}<i class="material-icons right">more_vert</i></span></div>
+
+                          <div class="right">
+                          <p>
+                            {% if obj_id == post.id_of_posted_user %}
+                             {% if not post.comments %}
+                               <a href="/delete/{{ post.id_of_posted_user }}/{{ post.id }}" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Delete Post" onclick="Materialize.toast('Post Deleted', 4000, 'rounded')" ><i class="material-icons">delete</i>Delete</a>
+                             {% endif %}
+
+                               <a class="tooltipped modal-trigger" data-position="bottom" data-delay="50" data-tooltip="Edit Post" id="btn2" data-target="{{ post.id }}"><i class="material-icons">mode_edit</i>Edit</a>
+                              {% endif %}
+                           </p>
+                          </div>
+                          <div class="left">
+                            <p>{{ post.post_time }}
+                               {% if post.is_edited %}
+                                   Edited
+                               {% endif%}
+                            </p></div><br>
+                      </div>
+                      <div class="card-reveal red lighten-3">
+                          <div class="row"><span class="card-title grey-text text-darken-4">{{ post.name_of_posted_user }}<i class="material-icons right">close</i></span></div>
+                          <div class="row"><p>{{ post.posted_text }}</p></div>
+                      </div>
+                    </div>
+
+
+                     {% if post.comments %}
+
+                       {% for items in post.comments %}
+                         <div class="row">
+                           <div class="col s12 m12">
+                              <div class="card-panel red lighten-3">
+                                        <p><strong>{{ items.name }}</strong></p>
+                                        <p>{{ items.content }}</p>
+                                        <div class="left">{{ items.time }}</div>
+                                <div class="right">
+                                  <a data-position="bottom" data-delay="50" data-tooltip="Delete Comment" class="tooltipped waves-effect waves-light" href="/delete_comment/{{ id }}/{{ post.id }}/{{ items.id }}"><i class="material-icons">delete</i> Delete</a>
+                                </div><br/>
+                              </div>
+                           </div>
+                         </div>
+                       {% endfor %}
+                     {% endif %}
+
+                      <div class="row">
+                         <div class="col s12 m12">
+                         <form class="card" method="post" action="/add_a_comment/{{ id }}/{{ post.id }}"> {% csrf_token %}
+                             <div class="row">
+                                <div class="input-field col s9">
+                                    <i class="material-icons prefix">mode_edit</i>
+                                  <textarea id="textarea1" name="textarea" required="" aria-required="true" class="materialize-textarea"></textarea>
+                                  <label for="textarea1">Add a Comment</label>
+                                </div>
+                                 <button class="btn waves-effect white black-text waves-orange" type="submit" name="action">Go
+                                     <i class="material-icons right">send</i>
+                                 </button>
+                             </div>
+                         </form>
+                             </div>
+                      </div>
+
+
+                </div>
+               </div>
+
+
+                  <!-- Edit the Image Post -->
+                    <div id="{{ post.id }}" class="modal modal-close modal-fixed-footer">
+                         <form action="/edit_image_post/{{ id }}/{{ post.id }}" method="post" enctype="multipart/form-data"> {% csrf_token %}
+                              <div class="modal-content">
+                                    <h4 class="center">Share images here</h4>
+                                        <br/>
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <i class="material-icons prefix">photo</i>
+				                            <label for="textarea1">Write about the Image!</label>
+                                            <textarea id="textarea1" name="textarea" class="materialize-textarea"></textarea>
+                                        </div>
+                                    </div>
+
+				                    <div class="file-field input-field center">
+                                    <div class="btn">
+                                    <i class="material-icons left">photo</i><span>Select Image</span>
+                                    <input type="file" name="file" accept="image/*" id="file" required="" aria-required="true" />
+                                    </div>
+                                    </div>
+
+			                    </div>
+			                <div class="modal-footer">
+                                <button class="modal-action modal-close waves-effect waves-green btn-flat" type="submit" onclick="Materialize.toast('Your image has posted', 4000, 'rounded')">Edit image<i class="material-icons right">send</i></button>
+                            </div>
+                         </form>
+                     </div>
+
+
+
+           {% elif post.videoPath %}
+
+
+
+                <div class="row">
+                    <div class="row"><div class="center"><a class="btn-floating btn-large"><i class="large material-icons yellow">theaters</i></a></div></div>
+                  <div class="col s12 m12">
+
+                    <div class="card">
+                      <div class="waves-effect waves-block waves-light">
+                          <video class="responsive-video" controls>
+                                <source src="{{ post.videoPath }}" type="video/mp4">
+                            </video>
+                      </div>
+                      <div class="card-content">
+                           <div class="row"><span class="card-title activator grey-text text-darken-4">{{ post.name_of_posted_user }}<i class="material-icons right">more_vert</i></span></div>
+                           <div class="right"><p>
+                            {% if obj_id == post.id_of_posted_user %}
+                               {% if not post.comments %}
+                                 <a href="/delete/{{ post.id_of_posted_user }}/{{ post.id }}" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="Delete Post" onclick="Materialize.toast('Post Deleted', 4000, 'rounded')" ><i class="material-icons">delete</i>Delete</a>
+                               {% endif %}
+                               <a class="tooltipped modal-trigger" data-position="bottom" data-delay="50" data-tooltip="Edit Post" id="btn2" data-target="{{ post.id }}"><i class="material-icons">mode_edit</i>Edit</a>
+                            {% endif %}
+                           </p></div>
+                          <div class="left">
+                            <p>{{ post.post_time }}
+                               {% if post.is_edited %}
+                                   Edited
+                               {% endif%}
+                            </p></div><br/>
+                      </div>
+                      <div class="card-reveal yellow lighten-3">
+                          <div class="row"><span class="card-title grey-text text-darken-4">{{ post.name_of_posted_user }}<i class="material-icons right">close</i></span></div>
+                          <div class="row"><p>{{ post.posted_text }}</p></div>
+                      </div>
+                    </div>
+
+
+                     {% if post.comments %}
+
+                       {% for items in post.comments %}
+                         <div class="row">
+                           <div class="col s12 m12">
+                              <div class="card-panel yellow lighten-3">
+                                    <p><strong>{{ items.name }}</strong></p>
+                                    <p>{{ items.content }}</p>
+                                    <div class="left">{{ items.time }}</div>
+                                <div class="right">
+                                  <a data-position="bottom" data-delay="50" data-tooltip="Delete Comment" class="tooltipped waves-effect waves-light" href="/delete_comment/{{ id }}/{{ post.id }}/{{ items.id }}"><i class="material-icons">delete</i>Delete</a>
+                                </div><br/>
+                              </div>
+                           </div>
+                         </div>
+                       {% endfor %}
+                     {% endif %}
+
+                      <div class="row">
+                         <div class="col s12 m12">
+                         <form class="card" method="post" action="/add_a_comment/{{ id }}/{{ post.id }}"> {% csrf_token %}
+                             <div class="row">
+                                <div class="input-field col s9">
+                                    <i class="material-icons prefix">mode_edit</i>
+                                  <textarea id="textarea1" name="textarea" required="" aria-required="true" class="materialize-textarea"></textarea>
+                                  <label for="textarea1">Add a Comment</label>
+                                </div>
+                                 <button class="btn waves-effect white black-text waves-orange" type="submit" name="action">Go
+                                     <i class="material-icons right">send</i>
+                                 </button>
+                             </div>
+                         </form>
+                             </div>
+                      </div>
+
+
+                </div>
+               </div>
+
+
+
+                 <!-- Edit the video Post -->
+                    <div id="{{ post.id }}" class="modal modal-close modal-fixed-footer">
+                         <form action="/edit_video_post/{{ id }}/{{ post.id }}" method="post" enctype="multipart/form-data"> {% csrf_token %}
+                              <div class="modal-content">
+			                    <h4 class="center">Share videos here</h4>
+                                    <br/>
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <i class="material-icons prefix">theaters</i>
+                                        <textarea id="textarea1" name="textarea" class="materialize-textarea"></textarea>
+                                        <label for="textarea1">Write about the Video!</label>
+                                    </div>
+                                </div>
+				                <div class="file-field input-field">
+                                    <div class="btn">
+                                        <i class="material-icons left">theaters</i><span>Select Video</span>
+                                        <input type="file" name="file" id="file" accept="video/*" required="" aria-required="true" />
+                                    </div>
+				                </div>
+                              </div>
+                            <div class="modal-footer modal-fixed-footer">
+					            <button class="modal-action modal-close waves-effect waves-green btn-flat" type="submit" onclick="Materialize.toast('Your video has posted', 4000, 'rounded')">Edit video<i class="material-icons right">send</i></button>
+                            </div>
+                         </form>
+                     </div>
+
+
+
+           {% elif post.uploaded_file_path %}
+
+
+
+                 <div class="row">
+                     <div class="row"><div class="center"><a class="btn-floating btn-large"><i class="large material-icons blue">attach_file</i></a></div></div>
+                      <div class="col s12 m12">
+
+                        <div class="card">
+                          <div class="card-content">
+                              <div class="row"><span class="card-title grey-text darken-4">{{ post.name_of_posted_user }}</span></div>
+                              <p>{{ post.posted_text }}</p>
+                              <i class="material-icons">description</i>
+                              <a href="/download_file/{{ post.id }}">{{ post.file_name }}</a>
+                          </div>
+
+                          <div class="card-action">
+                             <div class="left"><p>{{ post.post_time }}</p>
+                             {% if post.is_edited %}
+                                 <p> Edited </p>
+                             {% endif %}</div>
+
+                              <div class="right">
+                               {% if obj_id == post.id_of_posted_user %}
+                              {% if not post.comments %}
+                                 <a data-position="bottom" data-delay="50" data-tooltip="Delete Post" class="tooltipped waves-effect waves-light" href="/delete/{{ id }}/{{ post.id }}" onclick="Materialize.toast('Post Deleted', 4000, 'rounded')"><i class="material-icons">delete</i>Delete</a>
+                              {% endif %}
+
+                              <!-- Edit the Post -->
+                              <a data-position="bottom" data-delay="50" data-tooltip="Edit Post" id="btn1" class="tooltipped waves-effect waves-light modal-trigger" data-target="{{ post.id }}"><i class="material-icons">mode_edit</i>Edit</a>
+                              {% endif %}
+                              </div>
+                          </div>
+                        </div>
+
+
+
+                     {% if post.comments %}
+
+                       {% for items in post.comments %}
+                         <div class="row">
+                           <div class="col s12 m12">
+                              <div class="card-panel blue lighten-3">
+
+                                    <p><strong>{{ items.name }}</strong></p>
+                                    <p>{{ items.content }}</p>
+                                    <div class="left">{{ items.time }}</div>
+                                    <div class="right">
+                                        <a data-position="bottom" data-delay="50" data-tooltip="Delete Comment" class="tooltipped waves-effect waves-light" href="/delete_comment/{{ id }}/{{ post.id }}/{{ items.id }}"><i class="material-icons">delete</i>Delete</a>
+                                    </div><br/>
+                              </div>
+                           </div>
+                         </div>
+                       {% endfor %}
+                     {% endif %}
+
+                      <div class="row">
+                         <form class="col s12 m12" method="post" action="/add_a_comment/{{ id }}/{{ post.id }}"> {% csrf_token %}
+                             <div class="card">
+                                <div class="input-field col s9">
+                                    <i class="material-icons prefix">mode_edit</i>
+                                  <textarea id="textarea1" name="textarea" required="" aria-required="true" class="materialize-textarea"></textarea>
+                                  <label for="textarea1">Add a Comment</label>
+                                </div>
+                                 <button class="btn waves-effect white black-text waves-orange" type="submit" name="action">Go
+                                     <i class="material-icons right">send</i>
+                                 </button>
+                             </div>
+                         </form>
+                      </div>
+
+                      </div>
+                 </div>
+
+                     <!-- Edit the file Post -->
+                    <div id="{{ post.id }}" class="modal modal-close modal-fixed-footer">
+                                <form action="/edit_file_post/{{ id }}/{{ post.id }}" method="post" enctype="multipart/form-data"> {% csrf_token %}
+                                   <div class="modal-content">
+                                        <h4 class="center">Add the file here</h4>
+                                            <br/>
+                                        <div class="row">
+                                        <div class="input-field col s12">
+                                            <i class="material-icons prefix">attach_file</i>
+                                            <textarea id="textarea1" name="textarea" class="materialize-textarea"></textarea>
+                                            <label for="textarea1">Write about the File!</label>
+                                        </div>
+                                        </div>
+
+                                        <div class="file-field input-field">
+                                        <div class="btn">
+                                                 <i class="material-icons left">attach_file</i><span>Select File</span>
+                                                <input type="file" name="file"  id="file" accept="application/*" required="" aria-required="true" />
+					                    </div>
+                                    </div>
+                                   </div>
+                                <div class="modal-footer modal-fixed-footer">
+                                        <button class="modal-action modal-close waves-effect waves-green btn-flat" onclick="Materialize.toast('You have posted File!', 4000, 'rounded')" type="submit">Post File<i class="material-icons right">send</i></button>
+                                </div>
+                                </form>
+                              </div>
+
+
+
+             {% else %}
+
+                  <div class="row">
+                      <div class="row"><div class="center"><a class="btn-floating btn-large"><i class="large material-icons green">format_quote</i></a></div></div>
+                    <div class="col s12 m12">
+
+                      <div class="card">
+                        <div class="card-content">
+                           <div class="row"><span class="card-title">{{ post.name_of_posted_user }}</span></div>
+                           <p>{{ post.posted_text }}</p>
+                        </div>
+                        <div class="card-action">
+                           <div class="left"><p>{{ post.post_time }}</p>
+                           {% if post.is_edited %}
+                               <p> Edited </p>
+                           {% endif %}
+                            </div>
+
+                          <div class="right">
+                            {% if obj_id == post.id_of_posted_user %}
+                           {% if not post.comments %}
+                            <a data-position="bottom" data-delay="50" data-tooltip="Delete Post" class="tooltipped waves-effect waves-light" href="/delete/{{ id }}/{{ post.id }}" onclick="Materialize.toast('Post Deleted', 4000, 'rounded')"><i class="material-icons">delete</i>Delete</a>
+                            {% endif %}
+
+                           <!-- Edit the Post -->
+                           <a data-position="bottom" data-delay="50" data-tooltip="Edit Post" id="btn1" class="tooltipped waves-effect waves-light modal-trigger" data-target="{{ post.id }}"><i class="material-icons">mode_edit</i>Edit</a>
+                           {% endif %}
+                          </div>
+
+                       </div>
+                      </div>
+
+                     {% if post.comments %}
+
+                       {% for items in post.comments %}
+                         <div class="row">
+                           <div class="col s12 m12">
+                              <div class="card-panel green lighten-3">
+                                <p><strong>{{ items.name }}</strong></p>
+                                    <p>{{ items.content }}</p>
+                                    <div class="left">{{ items.time }}</div>
+                                    <div class="right">
+                                <a data-position="bottom" data-delay="50" data-tooltip="Delete Comment" class="tooltipped waves-effect waves-light" href="/delete_comment/{{ id }}/{{ post.id }}/{{ items.id }}"><i class="material-icons">delete</i>Delete</a>
+                                    </div><br/>
+                              </div>
+                           </div>
+                         </div>
+                       {% endfor %}
+
+                     {% endif %}
+
+                      <div class="row">
+                         <form class="col s12 m12" method="post" action="/add_a_comment/{{ id }}/{{ post.id }}"> {% csrf_token %}
+                             <div class="card">
+                                <div class="input-field col s9">
+                                    <i class="material-icons prefix">mode_edit</i>
+                                  <textarea id="textarea1" name="textarea" required="" aria-required="true" class="materialize-textarea"></textarea>
+                                  <label for="textarea1">Add a Comment</label>
+                                </div>
+                                 <button class="btn waves-effect white black-text waves-orange" type="submit" name="action">Go
+                                     <i class="material-icons right">send</i>
+                                 </button>
+                             </div>
+                         </form>
+                      </div>
+
+                    </div>
+                </div>
+
+                        <!-- Edit the text Post -->
+                            <div id="{{ post.id }}" class="modal modal-close modal-fixed-footer">
+                               <form action="/edit_post/{{ id }}/{{ post.id }}" method="post"> {% csrf_token %}
+                                   <div class="modal-content">
+                                 <h4 class="center">Write your interest here</h4>
+                                    <br/>
+                                <div class="row">
+                                    <div class="input-field"-->
+                                        <i class="material-icons prefix">mode_edit</i>
+                                        <textarea id="textarea1" name="textarea" class="materialize-textarea"></textarea>
+                                        <label for="textarea1">What's on your mind?</label>
+                                    </div>
+                                </div>
+                                </div>
+                                    <div class="modal-footer">
+                                        <button class="btn modal-action modal-close waves-effect waves-green btn-flat" type="submit" onclick="Materialize.toast('You status has updated', 4000, 'rounded')">Edit <i class="material-icons right">send</i></button>
+                                    </div>
+                               </form>
+                           </div>
+           {% endif %}
+{% endfor %}
